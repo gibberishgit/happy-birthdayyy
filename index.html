@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You 💖</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Floating hearts -->
+<div class="heart-bg" id="heartBg"></div>
+
+<!-- Surprise screen (shown first) -->
+<div class="surprise-screen" id="surpriseScreen">
+    <h2 class="surprise-heading">Happy Birthday Laadoo.. 🎂</h2>
+    <p class="surprise-sub">tap to open your surprise</p>
+    <button class="paw-btn" id="pawBtn">🐾</button>
+</div>
+
+<!-- Call Screen (hidden initially) -->
+<div class="call-screen" id="callScreen">
+    <div class="caller-info">
+        <div class="kitty-avatar">
+            <div class="kitty-face">
+                <div class="kitty-ears">
+                    <div class="ear left"></div>
+                    <div class="ear right"></div>
+                </div>
+                <div class="kitty-head">
+                    <div class="eyes">
+                        <div class="eye left"></div>
+                        <div class="eye right"></div>
+                    </div>
+                    <div class="nose">▲</div>
+                    <div class="mouth">
+                        <span>— —</span>
+                        <span>— —</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="caller-name">Adarsh 💙</h2>
+        <p class="caller-sub">Will you be my girlfriend?</p>
+        <p class="call-status" id="callStatus">calling...</p>
+    </div>
+
+    <div class="call-buttons">
+        <div class="btn-wrap" id="declineWrap">
+            <button class="call-btn decline" id="declineBtn">📵</button>
+            <span class="btn-label">Decline</span>
+        </div>
+        <div class="btn-wrap">
+            <button class="call-btn accept" id="acceptBtn">📞</button>
+            <span class="btn-label">Accept</span>
+        </div>
+    </div>
+</div>
+
+<!-- Final letter screen -->
+<div id="finalScreen">
+    <div id="finalCard">
+        <div id="finalHeading">💌 For Ambar...</div>
+        <div id="finalText"></div>
+        <div id="birthdayMsg">
+            <div class="bday-divider"></div>
+            <div class="bday-emoji">🎂</div>
+            <div class="bday-title">Happy Birthday, Laadoo 🎉</div>
+            <div class="bday-sub">
+                Here's to us — and every birthday we get to celebrate together. 💕
+            </div>
+        </div>
+        <div id="peaceMsg" style="
+            display: none;
+            margin-top: 24px;
+            font-size: 18px;
+            color: white;
+            opacity: 0.85;
+            font-style: italic;
+            text-align: center;
+            animation: fadeUp 0.8s ease both;
+        ">
+            Oh and Peace is waiting for us. 🐱
+        </div>
+    </div>
+</div>
+
+<audio id="ringtone" src="billi.mp3" loop></audio>
+<audio id="letterMusic" src="my_woman.mp3" loop></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
