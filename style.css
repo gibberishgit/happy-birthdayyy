@@ -1,0 +1,363 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #FAD6D3, #F28AA1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ── Floating hearts ── */
+.heart-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.floating-heart {
+    position: absolute;
+    bottom: -60px;
+    animation: floatUp linear infinite;
+    opacity: 0;
+}
+
+@keyframes floatUp {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+    100% { transform: translateY(-110vh) rotate(15deg); opacity: 0; }
+}
+
+/* ── Surprise Screen ── */
+.surprise-screen {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.surprise-heading {
+    font-size: 32px;
+    color: #5a1e30;
+    font-weight: 700;
+}
+
+.surprise-sub {
+    font-size: 17px;
+    color: #a05060;
+    font-style: italic;
+}
+
+.paw-btn {
+    font-size: 72px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    filter: drop-shadow(0 6px 18px rgba(242,138,161,0.5));
+    animation: pawBounce 1.6s ease-in-out infinite;
+    transition: transform 0.15s ease;
+    line-height: 1;
+    padding: 10px;
+}
+
+.paw-btn:active { transform: scale(0.88); }
+
+@keyframes pawBounce {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50%       { transform: scale(1.1) translateY(-8px); }
+}
+
+/* ── Call Screen ── */
+.call-screen {
+    display: none;
+    position: relative;
+    z-index: 10;
+    width: 340px;
+    background: rgba(255,255,255,0.22);
+    border: 1.5px solid rgba(255,255,255,0.55);
+    border-radius: 48px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 24px 64px rgba(242,138,161,0.35);
+    padding: 48px 32px 44px;
+    text-align: center;
+}
+
+.call-screen.show {
+    display: block;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.75); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+}
+
+/* ── Kitty Avatar ── */
+.kitty-avatar {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 20px;
+    position: relative;
+    animation: kittyPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes kittyPulse {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.06); }
+}
+
+.kitty-face {
+    position: relative;
+    width: 110px;
+    height: 110px;
+}
+
+.kitty-ears {
+    position: absolute;
+    top: -14px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.ear {
+    width: 32px;
+    height: 32px;
+    background: #F28AA1;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.ear::after {
+    content: '';
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: #ffd6e0;
+    clip-path: polygon(50% 15%, 5% 95%, 95% 95%);
+    margin: 8px auto 0;
+}
+
+.kitty-head {
+    width: 110px;
+    height: 110px;
+    background: linear-gradient(145deg, #fff5f7, #ffe0e8);
+    border-radius: 50%;
+    border: 3px solid rgba(242,138,161,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    box-shadow: 0 8px 24px rgba(242,138,161,0.25);
+}
+
+.eyes { display: flex; gap: 18px; }
+
+.eye {
+    width: 12px;
+    height: 14px;
+    background: #5a1e30;
+    border-radius: 50%;
+    position: relative;
+    animation: blink 4s ease-in-out infinite;
+}
+
+.eye::after {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px; right: 2px;
+}
+
+@keyframes blink {
+    0%, 92%, 100% { transform: scaleY(1); }
+    95%            { transform: scaleY(0.1); }
+}
+
+.nose { font-size: 9px; color: #F28AA1; line-height: 1; }
+
+.mouth {
+    display: flex;
+    gap: 6px;
+    font-size: 11px;
+    color: #c47a8a;
+    letter-spacing: -1px;
+    margin-top: -2px;
+}
+
+/* ── Caller info ── */
+.caller-name {
+    font-size: 26px;
+    color: #5a1e30;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.caller-sub {
+    font-size: 15px;
+    color: #7a3545;
+    font-style: italic;
+    margin-bottom: 6px;
+}
+
+.call-status {
+    font-size: 14px;
+    color: #a05060;
+    letter-spacing: 0.5px;
+}
+
+.call-status::after {
+    content: '';
+    animation: dots 1.5s steps(3, end) infinite;
+}
+
+@keyframes dots {
+    0%   { content: ''; }
+    33%  { content: '.'; }
+    66%  { content: '..'; }
+    100% { content: '...'; }
+}
+
+/* ── Call Buttons ── */
+.call-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin-top: 40px;
+}
+
+.btn-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.call-btn {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.call-btn.accept {
+    background: linear-gradient(135deg, #6fcf97, #27ae60);
+    box-shadow: 0 6px 20px rgba(39,174,96,0.4);
+    animation: acceptPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes acceptPulse {
+    0%, 100% { box-shadow: 0 6px 20px rgba(39,174,96,0.4); }
+    50%       { box-shadow: 0 6px 32px rgba(39,174,96,0.7); }
+}
+
+.call-btn.decline {
+    background: linear-gradient(135deg, #eb5757, #c0392b);
+    box-shadow: 0 6px 20px rgba(192,57,43,0.35);
+}
+
+.call-btn:active { transform: scale(0.92); }
+
+.btn-label {
+    font-size: 13px;
+    color: #7a3545;
+    font-weight: 600;
+}
+
+/* ── Final Screen ── */
+#finalScreen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #6495ED, #4169E1);
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 9999;
+    padding: 48px 24px;
+    overflow-y: auto;
+}
+
+#finalScreen.show { display: flex; }
+
+#finalCard {
+    max-width: 800px;
+    width: 100%;
+    color: white;
+    text-align: left;
+    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+#finalHeading {
+    font-size: 28px;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 32px;
+    color: #d6e8ff;
+}
+
+#finalText {
+    font-size: 24px;
+    white-space: pre-line;
+    line-height: 1.75;
+}
+
+/* ── Birthday message ── */
+#birthdayMsg {
+    display: none;
+    margin-top: 48px;
+    text-align: center;
+    animation: fadeUp 0.8s ease both;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.bday-divider {
+    width: 60px;
+    height: 2px;
+    background: rgba(255,255,255,0.3);
+    margin: 0 auto 28px;
+    border-radius: 2px;
+}
+
+.bday-emoji { font-size: 52px; margin-bottom: 12px; }
+.bday-title { font-size: 28px; font-style: italic; margin-bottom: 12px; }
+.bday-sub   { font-size: 19px; opacity: 0.85; line-height: 1.8; }
+
+/* ── Tablet ── */
+@media (min-width: 600px) and (max-width: 1024px) {
+    .surprise-heading { font-size: 38px; }
+    .surprise-sub     { font-size: 20px; }
+    .paw-btn          { font-size: 96px; }
+    .call-screen      { width: 400px; padding: 56px 40px 52px; }
+    .kitty-avatar, .kitty-head, .kitty-face { width: 130px; height: 130px; }
+    .caller-name      { font-size: 30px; }
+    .caller-sub       { font-size: 17px; }
+    .call-status      { font-size: 16px; }
+    .call-btn         { width: 80px; height: 80px; font-size: 30px; }
+    .btn-label        { font-size: 15px; }
+    #finalText        { font-size: 26px; }
+    #finalHeading     { font-size: 32px; }
+    .bday-title       { font-size: 30px; }
+    .bday-sub         { font-size: 20px; }
+}
