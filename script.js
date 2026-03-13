@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const declineBtn     = document.getElementById("declineBtn");
     const declineWrap    = document.getElementById("declineWrap");
     const callStatus     = document.getElementById("callStatus");
-    const mardyBum       = document.getElementById("mardyBum");
     const ringtone       = document.getElementById("ringtone");
     const letterMusic    = document.getElementById("letterMusic");
     const heartBg        = document.getElementById("heartBg");
@@ -25,23 +24,14 @@ document.addEventListener("DOMContentLoaded", function () {
         heartBg.appendChild(h);
     }
 
-    // ── Paw button → play Mardy Bum, then switch to call ──
+    // ── Paw button → trigger call ──
     pawBtn.addEventListener("click", function () {
-        // Play Mardy Bum on surprise screen
-        mardyBum.volume = 0.4;
-        mardyBum.play().catch(() => {});
-
         surpriseScreen.style.transition = "opacity 0.4s ease, transform 0.4s ease";
         surpriseScreen.style.opacity = "0";
         surpriseScreen.style.transform = "scale(0.85)";
 
         setTimeout(function () {
             surpriseScreen.style.display = "none";
-
-            // Stop Mardy Bum, start ringtone
-            mardyBum.pause();
-            mardyBum.currentTime = 0;
-
             callScreen.classList.add("show");
             ringtone.volume = 0.7;
             ringtone.play().catch(() => {});
