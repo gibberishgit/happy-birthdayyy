@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const declineBtn     = document.getElementById("declineBtn");
     const declineWrap    = document.getElementById("declineWrap");
     const callStatus     = document.getElementById("callStatus");
+    const mardyBum       = document.getElementById("mardyBum");
     const ringtone       = document.getElementById("ringtone");
     const letterMusic    = document.getElementById("letterMusic");
     const heartBg        = document.getElementById("heartBg");
@@ -24,8 +25,22 @@ document.addEventListener("DOMContentLoaded", function () {
         heartBg.appendChild(h);
     }
 
+    // ── Play Mardy Bum on first interaction ──
+    document.addEventListener("click", function () {
+        mardyBum.volume = 0.4;
+        mardyBum.play().catch(() => {});
+    }, { once: true });
+
+    document.addEventListener("touchstart", function () {
+        mardyBum.volume = 0.4;
+        mardyBum.play().catch(() => {});
+    }, { once: true });
+
     // ── Paw button → trigger call ──
     pawBtn.addEventListener("click", function () {
+        mardyBum.pause();
+        mardyBum.currentTime = 0;
+
         surpriseScreen.style.transition = "opacity 0.4s ease, transform 0.4s ease";
         surpriseScreen.style.opacity = "0";
         surpriseScreen.style.transform = "scale(0.85)";
@@ -38,9 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 400);
     });
 
-    // ── Decline: shrinks on every tap ──
+    // ── Decline shrinks, Accept grows ──
     let clickCount   = 0;
     let declineScale = 1;
+    let acceptScale  = 1;
 
     const declineMessages = [
         "Are you sure? 🥺",
@@ -53,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     declineBtn.addEventListener("click", function () {
 
+        // Show message — only while within bounds
         if (clickCount < declineMessages.length) {
             callStatus.style.opacity = 0;
             setTimeout(() => {
@@ -64,11 +81,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         clickCount++;
 
+        // Shrink decline
         declineScale -= 0.15;
         if (declineScale < 0.2) declineScale = 0.2;
         declineBtn.style.transform  = "scale(" + declineScale + ")";
         declineBtn.style.transition = "transform 0.3s ease";
 
+        // Grow accept
+        acceptScale += 0.15;
+        if (acceptScale > 2) acceptScale = 2;
+        acceptBtn.style.transform  = "scale(" + acceptScale + ")";
+        acceptBtn.style.transition = "transform 0.3s ease";
+
+        // Disable decline when too small
         if (declineScale <= 0.2) {
             declineBtn.disabled      = true;
             declineBtn.style.opacity = "0.2";
@@ -124,7 +149,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         bday.style.display = "block";
                         bday.scrollIntoView({ behavior: "smooth", block: "center" });
 
-                        // Peace message fades in 2 seconds after birthday msg
                         setTimeout(function () {
                             const peace = document.getElementById("peaceMsg");
                             if (peace) {
