@@ -25,21 +25,11 @@ document.addEventListener("DOMContentLoaded", function () {
         heartBg.appendChild(h);
     }
 
-    // ── Play Mardy Bum on first interaction ──
-    document.addEventListener("click", function () {
-        mardyBum.volume = 0.4;
-        mardyBum.play().catch(() => {});
-    }, { once: true });
-
-    document.addEventListener("touchstart", function () {
-        mardyBum.volume = 0.4;
-        mardyBum.play().catch(() => {});
-    }, { once: true });
-
-    // ── Paw button → trigger call ──
+    // ── Paw button → play Mardy Bum, then switch to call ──
     pawBtn.addEventListener("click", function () {
-        mardyBum.pause();
-        mardyBum.currentTime = 0;
+        // Play Mardy Bum on surprise screen
+        mardyBum.volume = 0.4;
+        mardyBum.play().catch(() => {});
 
         surpriseScreen.style.transition = "opacity 0.4s ease, transform 0.4s ease";
         surpriseScreen.style.opacity = "0";
@@ -47,6 +37,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setTimeout(function () {
             surpriseScreen.style.display = "none";
+
+            // Stop Mardy Bum, start ringtone
+            mardyBum.pause();
+            mardyBum.currentTime = 0;
+
             callScreen.classList.add("show");
             ringtone.volume = 0.7;
             ringtone.play().catch(() => {});
@@ -69,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     declineBtn.addEventListener("click", function () {
 
-        // Show message — only while within bounds
         if (clickCount < declineMessages.length) {
             callStatus.style.opacity = 0;
             setTimeout(() => {
@@ -93,7 +87,6 @@ document.addEventListener("DOMContentLoaded", function () {
         acceptBtn.style.transform  = "scale(" + acceptScale + ")";
         acceptBtn.style.transition = "transform 0.3s ease";
 
-        // Disable decline when too small
         if (declineScale <= 0.2) {
             declineBtn.disabled      = true;
             declineBtn.style.opacity = "0.2";
